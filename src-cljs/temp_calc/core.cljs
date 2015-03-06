@@ -108,7 +108,7 @@
   (.show ($ "#startLoggingBtn"))
   (.hide ($ "#stopLoggingBtn")))
 
-(defn- add-events!
+(defn- add-dom-events!
   "Add event handlers on DOM elements using jQuery."
   []
   ;; text elements
@@ -132,7 +132,9 @@
 (defn- init!
   "Initialize the app."
   []
-  (add-events!)
+  (add-dom-events!)
+
+  ;; trigger an initial state change
   (swap! current-temps identity))
 
 ;; run init! when the body loads
