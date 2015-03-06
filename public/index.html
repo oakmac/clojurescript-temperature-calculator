@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <title>ClojureScript Temperature Calculator</title>
+  <style type="text/css">
+  body {
+    font-family: Helvetica;
+    padding: 40px;
+  }
+
+  fieldset {
+    border: 0;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    padding: 10px;
+  }
+  </style>
+</head>
+<body>
+<h1>Temperature Calculator</h1>
+
+<fieldset>
+  <legend>Text Inputs:</legend>
+  <label>C: <input id="cTextInput" type="text" /></label>
+  <label>F: <input id="fTextInput" type="text" /></label>
+  <label>K: <input id="kTextInput" type="text" /></label>
+</fieldset>
+
+<fieldset>
+  <legend>Range Inputs:</legend>
+  <label>C: <input id="cRangeInput" type="range" min="-1000" max="1000" /></label>
+  <label>F: <input id="fRangeInput" type="range" min="-1000" max="1000" /></label>
+  <label>K: <input id="kRangeInput" type="range" min="-1000" max="1000" /></label>
+</fieldset>
+
+<script src="js/app-dev.js"></script>
+<!-- <script src="js/app-release.js"></script> -->
+</body>
+</html>
