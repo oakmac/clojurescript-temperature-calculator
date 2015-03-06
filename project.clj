@@ -4,7 +4,9 @@
     [org.clojure/clojure "1.6.0"]
     [org.clojure/clojurescript "0.0-2913"]
     [cljsjs/jquery "1.9.0-0"]
-    [cljsjs/react "0.12.2-5"]]
+    [cljsjs/react "0.12.2-5"]
+    [quiescent "0.1.4"]
+    [sablono "0.3.1"]]
 
   :plugins [[lein-cljsbuild "1.0.5"]]
 

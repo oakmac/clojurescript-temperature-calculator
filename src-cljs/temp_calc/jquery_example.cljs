@@ -1,67 +1,17 @@
-(ns temp-calc.core
+(ns temp-calc.jquery-example
   (:require
     cljsjs.jquery
-    [temp-calc.util :refer [js-log log]]))
+    [temp-calc.convert :refer [convert-temps]]
+    [temp-calc.util :refer [js-log log round]]))
 
 ;; alias jQuery
 (def $ js/jQuery)
 
 ;;------------------------------------------------------------------------------
-;; Temperature Conversion
-;;------------------------------------------------------------------------------
-
-(defn- round
-  "Rounds to nearest integer."
-  [x]
-  (.round js/Math x))
-
-;; Fahrenheit
-(defn- F->C [tf]
-  (* (/ 5 9) (- tf 32)))
-
-(defn- F->K [tf]
-  (* (+ 459.67 tf) (/ 5 9)))
-
-;; Centigrade
-(defn- C->F [tc]
-  (+ (* (/ 9 5) tc) 32))
-
-(defn- C->K [tc]
-  (+ 273.15 tc))
-
-;; Kelvin
-(defn- K->C [tk]
-  (- tk 273.15))
-
-(defn- K->F [tk]
-  (- (* (/ 9 5) tk) 459.67))
-
-(defn- convert-temp
-  "Given a temperature value 'v' and keyword 'kwd' of :C, :F, or :K
-   Returns a map of the temperature 'v' in all three formats."
-  [kwd v]
-  (case kwd
-    :C {:C v
-        :F (C->F v)
-        :K (C->K v)}
-
-    :F {:C (F->C v)
-        :F v
-        :K (F->K v)}
-
-    :K {:C (K->C v)
-        :F (F->C v)
-        :K v}))
-
-;;------------------------------------------------------------------------------
 ;; Page State
 ;;------------------------------------------------------------------------------
 
-(def initial-state {
-  :C 0
-  :F (C->F 0)
-  :K (C->K 0)})
-
+(def initial-state (convert-temps :C 0))
 (def current-temps (atom initial-state))
 
 ;;------------------------------------------------------------------------------
@@ -95,7 +45,7 @@
 
 (defn- on-change-input [temp-kwd js-evt]
   (let [new-temp-value (js/parseFloat (aget js-evt "currentTarget" "value"))
-        new-temps (convert-temp temp-kwd new-temp-value)]
+        new-temps (convert-temps temp-kwd new-temp-value)]
     (reset! current-temps new-temps)))
 
 (defn- click-start-logging-btn [_js-evt]
@@ -126,16 +76,16 @@
   (.on ($ "#stopLoggingBtn") "click" click-stop-logging-btn))
 
 ;;------------------------------------------------------------------------------
-;; Global App Init
+;; Page Init
 ;;------------------------------------------------------------------------------
 
 (defn- init!
-  "Initialize the app."
+  "Initialize the jQuery example page."
   []
   (add-dom-events!)
 
   ;; trigger an initial state change
   (swap! current-temps identity))
 
-;; run init! when the body loads
-(.addEventListener js/window "load" init!)
+;; export the init! function
+(goog/exportSymbol "startJQueryExample" init!)

@@ -9,3 +9,8 @@
   "Logs a Clojure thing."
   [clj-thing]
   (js-log (pr-str clj-thing)))
+
+(defn round
+  "Rounds to nearest integer."
+  [x]
+  (.round js/Math x))
