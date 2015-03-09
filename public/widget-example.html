@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+  <title>ClojureScript Temperature Calculator - React Example</title>
+  <style type="text/css">
+  body {
+    font-family: Helvetica;
+    padding: 40px;
+  }
+
+  fieldset {
+    border: 0;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    padding: 10px;
+  }
+  </style>
+</head>
+<body>
+<h1>Temperature Calculator - React Example</h1>
+<button id="btn1">Set Calc1 to 50C</button>
+<button id="btn2">Set Calc2 to 200K</button>
+<button id="btn3">log temps</button>
+<div id="container1"></div>
+<div id="container2"></div>
+
+<script src="js/app-dev.js"></script>
+<!-- <script src="js/app-release.js"></script> -->
+<script>
+var calc1 = TempCalc("container1");
+calc1.setTemp("F", 0);
+console.log( calc1.temps() );
+
+var calc2 = TempCalc("container2");
+calc2.setTemp("C", 100);
+console.log( calc2.temps() );
+
+function clickBtn1() {
+  calc1.setTemp({"C":50});
+}
+
+function clickBtn2() {
+  calc2.setTemp("K", 200);
+}
+
+function clickBtn3() {
+  console.log("Calc1 temps:");
+  console.log(calc1.temps());
+  console.log("Calc2 temps:");
+  console.log(calc2.temps());
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+}
+
+byId("btn1").addEventListener("click", clickBtn1);
+byId("btn2").addEventListener("click", clickBtn2);
+byId("btn3").addEventListener("click", clickBtn3);
+
+function byId(id) {
+  return document.getElementById(id);
+}
+</script>
+</body>
+</html>
